@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package auth;
+
+import "google/protobuf/any.proto";
+
+option go_package = "./pkg/auth/pb";
+
+service AuthService{
+    rpc AdminSignup(AdminDetailsRequest) returns (Response) {}
+    rpc VerifyOtp(OTPRequest) returns(Response){}
+    rpc AdminLogin(LoginDetailsRequest)returns(AdminResponse){}
+
+    rpc UserSignup(PhoneRequest) returns (Response) {}
+    rpc UserVerifyOtp(OTPRequest) returns(Response){}
+    rpc Register(AdminDetailsRequest) returns (Response) {}
+    rpc UserLogin(LoginDetailsRequest)returns(AdminResponse){}  
+}
+
+message PhoneRequest{
+    string Phone=1;
+}
+message AdminDetailsRequest{     
+    string  Username =2;
+    string  Name =3;     
+    string  Phone =4 ; 
+    string  Email =5 ; 
+    string  Password=6 ;
+}
+
+message OTPRequest{
+    string OTP=1;
+    string Phone=2;
+}
+
+message LoginDetailsRequest{
+    string Username=1;
+    string Password=2;
+}
+
+message Response {
+    int32 statuscode =1;
+    string message =2;
+    string errors = 3;
+    google.protobuf.Any data = 4;
+    
+ }
+
+ message AdminResponse{
+    int32 statuscode =1;
+    string message =2;
+    string errors = 3;
+    uint32    ID=4;
+
+ }

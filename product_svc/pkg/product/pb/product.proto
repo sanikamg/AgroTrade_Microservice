@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package product;
+
+import "google/protobuf/any.proto";
+
+option go_package = "./pkg/product/pb";
+
+service ProductService{
+    rpc AddProduct (ProductDetailsRequest) returns(Response){}
+    rpc GetProduct(PaginationRequest)returns(Response){}
+   
+}
+
+message ProductDetailsRequest{
+         
+    string ProductName=1;
+    int32  ProductPrice=2;
+    int32 ProductQuanity=3;
+    string Category=4;
+    
+
+}
+
+message PaginationRequest{
+    int32 Page =1;
+    int32 PageSize=2;
+}
+
+message Response {
+    int32 statuscode =1;
+    string message =2;
+    string errors = 3;
+repeated ProductDetailsRequest resp =4;
+    google.protobuf.Any data = 5;
+    
+ }
+
+ 
